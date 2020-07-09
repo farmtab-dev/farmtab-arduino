@@ -24,7 +24,7 @@
 GravityTDS::GravityTDS(ISensor *temp) //: pin(A5),  aref(5.0), adcRange(1024.0), kValueAddress(8), kValue(1.0)
 {
   this->ecTemperature = temp;
-  this->pin = 4;
+  this->pin = A1;
   // this->temperature = 25.0;
   this->aref = 5.0;
   this->adcRange = 1024.0;
@@ -184,9 +184,9 @@ void GravityTDS::ecCalibration(byte mode)
       break;
      
       case 2:
-      cmdReceivedBufferPtr=strstr(cmdReceivedBuffer, "CAL:");
-      cmdReceivedBufferPtr+=strlen("CAL:");
-      rawECsolution = strtod(cmdReceivedBufferPtr,NULL)/(float)(0.5);
+      //cmdReceivedBufferPtr=strstr(cmdReceivedBuffer, "CALTDS");
+      //cmdReceivedBufferPtr+=strlen("CALTDS");
+      rawECsolution = /*strtod(cmdReceivedBufferPtr,NULL)*/707/(float)(0.5);
       rawECsolution = rawECsolution * (1.0 + 0.02 * (this->ecTemperature->getValue() - 25.0));
       if(enterCalibrationFlag)
       {
