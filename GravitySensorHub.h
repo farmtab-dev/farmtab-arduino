@@ -40,11 +40,11 @@ public:
 	//********************************************************************************************
 	// function name: sensors []
 	// Function Description: Store the array of sensors
-	// Parameters: 0 ph sensor
-	// Parameters: 1 temperature sensor
-	// Parameters: 2 Dissolved oxygen sensor
-	// Parameters: 3 Conductivity sensor
-	// Parameters: 4 Redox potential sensor
+	// Parameters: 0 PH sensor
+	// Parameters: 1 Temperature sensor
+	// Parameters: 2 TDS sensor
+	// Parameters: 3 EC sensor
+	// Parameters: 4 ORP sensor
 	//********************************************************************************************
 	ISensor *sensors[SensorCount] = {0};
 public:

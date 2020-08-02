@@ -1,5 +1,5 @@
 /*********************************************************************
-   WaterMonitor.ino
+   farmtab-arduino.ino
 
    Copyright (C)    2017   [DFRobot](http://www.dfrobot.com)
    GitHub Link :https://github.com/DFRobot/watermonitor
@@ -19,15 +19,16 @@
    Copy the files from the github repository folder libraries to the libraries
    in the Arduino IDE 1.8.2 installation directory
 
-   Hardware platform   : Arduino M0 Or Arduino Mega2560
+   Hardware platform   : Arduino UNO
    Sensor pin:
-   EC  : A1
+   EC  : A0
    PH  : A2
    ORP : A3
-   RTC : I2C
-   DO  : Serial port Rx(0),Tx(1)
-   GravityDO：A4
-   temperature:D5
+   TDS : A1
+   Temperature : D5
+   Water level sensor (Fertilizer) : D8
+   Water level sensor (Water)      : D9
+
 
    SD card attached to SPI bus as follows:
    Mega:  MOSI - pin 51, MISO - pin 50, CLK - pin 52, CS - pin 53

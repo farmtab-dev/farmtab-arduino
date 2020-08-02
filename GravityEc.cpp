@@ -12,7 +12,7 @@
 *
 * Product Links：http://www.dfrobot.com.cn/goods-882.html
 *
-* Sensor driver pin：A1 (ecSensorPin(A1))
+* Sensor driver pin：A0 (ecSensorPin(A0))
 *
 * author  :  Jason(jason.ling@dfrobot.com)
 * version :  V1.0
