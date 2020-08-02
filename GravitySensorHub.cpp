@@ -139,7 +139,7 @@ void GravitySensorHub::calibrate()
 		} else if (strstr(this->_cmdReceivedBuffer, "CALEC") != NULL)	{
 			this->sensors[3]->calibration(2);
 		}else{
-			Serial.println(F(">>>Command Error<<<"));
+			Serial.println(F(">>>Arduino Command Error<<<"));
 		}
 	}
 }

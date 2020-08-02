@@ -28,15 +28,15 @@ public:
 
     void setup();  //initialization
     void update(); //read and calculate
-    void setPin(int pin); 
+    //void setPin(int pin); 
     //void setTemperature(float temp);  //set the temperature and execute temperature compensation
-   // void setAref(float value);  //reference voltage on ADC, default 5.0V on Arduino UNO
-   // void setAdcRange(float range);  //1024 for 10bit ADC;4096 for 12bit ADC
+    //void setAref(float value);  //reference voltage on ADC, default 5.0V on Arduino UNO
+    //void setAdcRange(float range);  //1024 for 10bit ADC;4096 for 12bit ADC
     //void setKvalueAddress(int address); //set the EEPROM address to store the k value,default address:0x08
     float getKvalue(); 
     double getValue();
     float getEcValue();
-// void calibration();
+    //void calibration();
     void calibration(byte mode);
 private:
     //point to the temperature sensor pointer

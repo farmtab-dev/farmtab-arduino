@@ -202,7 +202,7 @@ void GravityPh::phCalibration(byte mode)
     switch(mode){
         case 0:
         if(enterCalibrationFlag){
-            Serial.println(F(">>>Command Error<<<"));
+            Serial.println(F(">>>PH Command Error<<<"));
         }
         break;
 

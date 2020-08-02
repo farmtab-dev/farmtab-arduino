@@ -89,7 +89,7 @@ void loop() {
   sdService.update();
 
   // ************************* Serial debugging ******************
-  if (millis() - updateTime > 5000)
+  if (millis() - updateTime > 3000)
   {
     updateTime = millis();
     Serial.print(F("PH@"));

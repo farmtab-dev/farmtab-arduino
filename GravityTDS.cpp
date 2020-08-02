@@ -171,7 +171,7 @@ void GravityTDS::ecCalibration(byte mode)
     {
       case 0:
       if(enterCalibrationFlag)
-         Serial.println(F("Command Error"));
+         Serial.println(F("TDS Command Error"));
       break;
       
       case 1:
