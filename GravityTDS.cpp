@@ -28,7 +28,8 @@ GravityTDS::GravityTDS(ISensor *temp) //: pin(A5),  aref(5.0), adcRange(1024.0),
   // this->temperature = 25.0;
   this->aref = 5.0;
   this->adcRange = 1024.0;
-  this->kValueAddress = 8;
+  // this->kValueAddress = 8;
+  this->kValueAddress = 16;
   this->kValue = 1.0;
 }
 /* GravityTDS::GravityTDS()
@@ -81,7 +82,6 @@ float GravityTDS::getKvalue()
 
 void GravityTDS::update()
 {
-
   analogValue = analogRead(pin);
 	voltage = analogValue/adcRange*aref;
 	ecValue=(133.42*voltage*voltage*voltage - 255.86*voltage*voltage + 857.39*voltage)*kValue;
@@ -178,15 +178,16 @@ void GravityTDS::ecCalibration(byte mode)
       enterCalibrationFlag = 1;
       ecCalibrationFinish = 0;
       Serial.println();
-      Serial.println(F(">>>Enter Calibration Mode<<<"));
-      Serial.println(F(">>>Please put the probe into the standard buffer solution<<<"));
+      Serial.println(F(">>>Enter TDS Calibration Mode<<<"));
+      Serial.println(F(">>>Please put the probe into the standard buffer solution : 707ppm(1413us/cm)@25^c <<<"));
       Serial.println();
       break;
      
       case 2:
       //cmdReceivedBufferPtr=strstr(cmdReceivedBuffer, "CALTDS");
       //cmdReceivedBufferPtr+=strlen("CALTDS");
-      rawECsolution = /*strtod(cmdReceivedBufferPtr,NULL)*/707/(float)(0.5);
+      // rawECsolution = /*strtod(cmdReceivedBufferPtr,NULL)*/707/(float)(0.5);
+      rawECsolution = 707/(float)(0.5);
       rawECsolution = rawECsolution * (1.0 + 0.02 * (this->ecTemperature->getValue() - 25.0));
       if(enterCalibrationFlag)
       {
@@ -198,15 +199,15 @@ void GravityTDS::ecCalibration(byte mode)
           if((rawECsolution>0) && (rawECsolution<2000) && (KValueTemp>0.25) && (KValueTemp<4.0))
           {
               Serial.println();
-              Serial.print(F(">>>Confrim Successful,K:"));
+              Serial.print(F(">>>TDS Confirm Successful,K:"));
               Serial.print(KValueTemp);
-              Serial.println(F(", Send EXIT to Save and Exit<<<"));
+              Serial.println(F(", Send EXITTDS to Save and Exit<<<"));
               kValue =  KValueTemp;
               ecCalibrationFinish = 1;
           }
           else{
             Serial.println();
-            Serial.println(F(">>>Confirm Failed,Try Again<<<"));
+            Serial.println(F(">>>TDS Confirm Failed,Try Again<<<"));
             Serial.println();
             ecCalibrationFinish = 0;
           }        
@@ -220,10 +221,10 @@ void GravityTDS::ecCalibration(byte mode)
             if(ecCalibrationFinish)
             {
                EEPROM_write(kValueAddress, kValue);
-               Serial.print(F(">>>Calibration Successful,K Value Saved"));
+               Serial.print(F(">>>TDS Calibration Successful,K Value Saved"));
             }
-            else Serial.print(F(">>>Calibration Failed"));       
-            Serial.println(F(",Exit Calibration Mode<<<"));
+            else Serial.print(F(">>>TDS Calibration Failed"));       
+            Serial.println(F(",Exit TDS Calibration Mode<<<"));
             Serial.println();
             ecCalibrationFinish = 0;
             enterCalibrationFlag = 0;

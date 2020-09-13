@@ -13,6 +13,7 @@
 * Product Links：http://www.dfrobot.com.cn/goods-882.html
 *
 * Sensor driver pin：A0 (ecSensorPin(A0))
+* https://wiki.dfrobot.com/Gravity__Analog_Electrical_Conductivity_Sensor___Meter_V2__K%3D1__SKU_DFR0300
 *
 * author  :  Jason(jason.ling@dfrobot.com)
 * version :  V1.0

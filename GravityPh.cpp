@@ -11,6 +11,8 @@
 * Description:Monitoring water quality parameters ph
 *
 * Product Links：http://www.dfrobot.com.cn/goods-812.html
+* https://www.dfrobot.com/product-2069.html
+* https://github.com/DFRobot/DFRobot_PH
 *
 * Sensor driver pin：A2 (phSensorPin(A2))
 *
@@ -219,21 +221,21 @@ void GravityPh::phCalibration(byte mode)
         if(enterCalibrationFlag){
             if((voltage>1.7)&&(voltage<2.7)){        // buffer solution:7.0{
                 Serial.println();
-                Serial.print(F(">>>Buffer Solution:7.0"));
+                Serial.print(F(">>>PH Buffer Solution:7.0"));
                 this->_neutralVoltage =  voltage;
                 Serial.println(F(",Send EXITPH to Save and Exit<<<"));
                 Serial.println();
                 phCalibrationFinish = 1;
             }else if((voltage>0.7)&&(voltage<1.7)){  //buffer solution:4.0
                 Serial.println();
-                Serial.print(F(">>>Buffer Solution:4.0"));
+                Serial.print(F(">>>PH Buffer Solution:4.0"));
                 this->_acidVoltage =  voltage;
                 Serial.println(F(",Send EXITPH to Save and Exit<<<")); 
                 Serial.println();
                 phCalibrationFinish = 1;
             }else{
                 Serial.println();
-                Serial.print(F(">>>Buffer Solution Error Try Again<<<"));
+                Serial.print(F(">>>PH Buffer Solution Error Try Again<<<"));
                 Serial.println();                                    // not buffer solution or faulty operation
                 phCalibrationFinish = 0;
             }
@@ -249,9 +251,14 @@ void GravityPh::phCalibration(byte mode)
                 }else if((voltage>0.7)&&(voltage<1.7)){
                     EEPROM_write(PHVALUEADDR+4, this->_acidVoltage);
                 }
-                Serial.print(F(">>>Calibration Successful"));
+                /*if((this->_voltage>1322)&&(this->_voltage<1678)){
+                    EEPROM_write(PHVALUEADDR, this->_neutralVoltage);
+                }else if((this->_voltage>1854)&&(this->_voltage<2210)){
+                    EEPROM_write(PHVALUEADDR+4, this->_acidVoltage);
+                }*/
+                Serial.print(F(">>>PH Calibration Successful"));
             }else{
-                Serial.print(F(">>>Calibration Failed"));
+                Serial.print(F(">>>PH Calibration Failed"));
             }
             Serial.println(F(",Exit PH Calibration Mode<<<"));
             Serial.println();
