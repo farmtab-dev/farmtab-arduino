@@ -13,7 +13,8 @@
 * Product Links：http://www.dfrobot.com.cn/goods-812.html
 * https://www.dfrobot.com/product-2069.html
 * https://github.com/DFRobot/DFRobot_PH
-*
+*https://media.digikey.com/pdf/Data%20Sheets/DFRobot%20PDFs/SEN0161_SEN0169_Web.pdf
+
 * Sensor driver pin：A2 (phSensorPin(A2))
 *
 * author  :  Jason(jason.ling@dfrobot.com)
