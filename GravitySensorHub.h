@@ -47,15 +47,16 @@ public:
 	// Parameters: 4 ORP sensor
 	//********************************************************************************************
 	ISensor *sensors[SensorCount] = {0};
+
 public:
 	GravitySensorHub();
 	~GravitySensorHub();
 
 	// initialize all sensors
-	void  setup ();
+	void setup();
 
 	// update all sensor values
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValueBySensorNumber(int num);

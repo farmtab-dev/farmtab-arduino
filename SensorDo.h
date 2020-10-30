@@ -20,7 +20,7 @@
 #include "ISensor.h"
 #include "Arduino.h"
 
-class SensorDo: public ISensor
+class SensorDo : public ISensor
 {
 public:
 	SensorDo();
@@ -28,10 +28,10 @@ public:
 
 public:
 	// initialization
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValue();
@@ -39,10 +39,8 @@ public:
 	void calibration(byte mode);
 
 private:
-
 	String sensorstring = "";
 
 	// do the data
 	double doValue;
-
 };

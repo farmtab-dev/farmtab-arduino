@@ -24,19 +24,13 @@ GravityTemperature::GravityTemperature(int pin)
 	this->oneWire = new OneWire(pin);
 }
 
-GravityTemperature::~GravityTemperature()
-{
-}
-
+GravityTemperature::~GravityTemperature() {}
 
 //********************************************************************************************
 // function name: setup ()
 // Function Description: Initializes the sensor
 //********************************************************************************************
-void GravityTemperature::setup()
-{
-}
-
+void GravityTemperature::setup() {}
 
 //********************************************************************************************
 // function name: update ()
@@ -44,14 +38,13 @@ void GravityTemperature::setup()
 //********************************************************************************************
 void GravityTemperature::update()
 {
-	if ( millis () - tempSampleTime >= tempSampleInterval)
+	if (millis() - tempSampleTime >= tempSampleInterval)
 	{
-		tempSampleTime = millis ();
-		temperature = TempProcess(ReadTemperature);  // read the current temperature from the  DS18B20
-		TempProcess(StartConvert);                   //after the reading,start the convert for next reading
+		tempSampleTime = millis();
+		temperature = TempProcess(ReadTemperature); // read the current temperature from the  DS18B20
+		TempProcess(StartConvert);					//after the reading,start the convert for next reading
 	}
 }
-
 
 //********************************************************************************************
 // function name: getValue ()
@@ -62,7 +55,6 @@ double GravityTemperature::getValue()
 	return temperature;
 }
 
-
 //********************************************************************************************
 // function name: TempProcess ()
 // Function Description: Analyze the temperature data
@@ -72,17 +64,21 @@ double GravityTemperature::TempProcess(bool ch)
 	static byte data[12];
 	static byte addr[8];
 	static float TemperatureSum;
-	if (!ch) {
-		if (!oneWire->search(addr)) {
+	if (!ch)
+	{
+		if (!oneWire->search(addr))
+		{
 			Debug::println("no temperature sensors on chain, reset search!");
 			oneWire->reset_search();
 			return 0;
 		}
-		if (OneWire::crc8(addr, 7) != addr[7]) {
+		if (OneWire::crc8(addr, 7) != addr[7])
+		{
 			Debug::println("CRC is not valid!");
 			return 0;
 		}
-		if (addr[0] != 0x10 && addr[0] != 0x28) {
+		if (addr[0] != 0x10 && addr[0] != 0x28)
+		{
 			Debug::println("Device is not recognized!");
 			return 0;
 		}
@@ -90,11 +86,13 @@ double GravityTemperature::TempProcess(bool ch)
 		oneWire->select(addr);
 		oneWire->write(0x44, 1); // start conversion, with parasite power on at the end
 	}
-	else {
+	else
+	{
 		byte present = oneWire->reset();
 		oneWire->select(addr);
 		oneWire->write(0xBE); // Read Scratchpad
-		for (int i = 0; i < 9; i++) { // we need 9 bytes
+		for (int i = 0; i < 9; i++)
+		{ // we need 9 bytes
 			data[i] = oneWire->read();
 		}
 		oneWire->reset_search();

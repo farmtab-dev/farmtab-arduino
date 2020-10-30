@@ -21,7 +21,7 @@
 
 #pragma once
 
-#define RTC_Address   0x32  //RTC_Address
+#define RTC_Address 0x32 //RTC_Address
 
 class GravityRtc
 {
@@ -43,16 +43,15 @@ public:
 	void initRtc();
 
 	// initialization
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 	// read the clock data
-	void  readRtc();
+	void readRtc();
 
 	// parse RTC data
 	void processRtc();
-
 
 private:
 	unsigned char date[7];
@@ -62,6 +61,4 @@ private:
 	void WriteTimeOn(void);
 	void WriteTimeOff(void);
 	unsigned long timeUpdate;
-
-
 };

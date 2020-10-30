@@ -22,7 +22,7 @@
 #pragma once
 #include <Arduino.h>
 #include "ISensor.h"
-class GravityOrp:public ISensor
+class GravityOrp : public ISensor
 {
 public:
 	// orp sensor pin
@@ -33,10 +33,10 @@ public:
 
 	// Calibrate the offset
 	float offset;
+
 private:
 	// orp value
 	double orpValue;
-
 
 	static const int arrayLength = 5;
 	int orpArray[arrayLength];
@@ -51,10 +51,10 @@ public:
 	~GravityOrp();
 
 	// initialize the sensor
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValue();

@@ -21,17 +21,11 @@
 
 #include "GravityRtc.h"
 #include "Arduino.h"
-#include <Wire.h>     
+#include <Wire.h>
 
+GravityRtc::GravityRtc() : year(2017), month(4), day(17), week(4), hour(14), minute(5), second(0) {}
 
-GravityRtc::GravityRtc() :year(2017), month(4), day(17), week(4), hour(14), minute(5),second(0)
-{
-}
-
-
-GravityRtc::~GravityRtc()
-{
-}
+GravityRtc::~GravityRtc() {}
 
 //********************************************************************************************
 // function name: setup ()
@@ -42,7 +36,6 @@ void GravityRtc::setup()
 	Wire.begin();
 	// initRtc ();
 }
-
 
 //********************************************************************************************
 // function name: update ()
@@ -66,25 +59,24 @@ void GravityRtc::initRtc()
 {
 	WriteTimeOn();
 
-	Wire. beginTransmission (RTC_Address);
-	Wire.write(char(0));//Set the address for writing
+	Wire.beginTransmission(RTC_Address);
+	Wire.write(char(0)); //Set the address for writing
 	Wire.write(this->decTobcd(second));
 	Wire.write(this->decTobcd(minute));
-	Wire.write(this->decTobcd(hour + 80));      // +80: sets 24 hours format
-	Wire.write(this->decTobcd(week));       // days values come from 0 to 6: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+	Wire.write(this->decTobcd(hour + 80)); // +80: sets 24 hours format
+	Wire.write(this->decTobcd(week));	   // days values come from 0 to 6: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
 	Wire.write(this->decTobcd(day));
 	Wire.write(this->decTobcd(month));
-	Wire.write(this->decTobcd(year-2000));
+	Wire.write(this->decTobcd(year - 2000));
 	Wire.endTransmission();
 
-	Wire. beginTransmission (RTC_Address);
-	Wire.write(0x12);   //Set the address for writing
+	Wire.beginTransmission(RTC_Address);
+	Wire.write(0x12); //Set the address for writing
 	Wire.write(char(0));
 	Wire.endTransmission();
 
 	WriteTimeOff();
 }
-
 
 //********************************************************************************************
 // function name: readRtc ()
@@ -103,7 +95,6 @@ void GravityRtc::readRtc()
 	Wire.endTransmission();
 }
 
-
 //********************************************************************************************
 // function name: processRtc ()
 // Function Description: Resolves the RTC data obtained by readRtc
@@ -112,7 +103,7 @@ void GravityRtc::processRtc()
 {
 	unsigned char i;
 
-	for (i = 0; i<7; i++)
+	for (i = 0; i < 7; i++)
 	{
 		if (i != 2)
 			date[i] = (((date[i] & 0xf0) >> 4) * 10) + (date[i] & 0x0f);
@@ -122,16 +113,14 @@ void GravityRtc::processRtc()
 			date[2] = (((date[2] & 0xf0) >> 4) * 10) + (date[2] & 0x0f);
 		}
 	}
-	year   = date[6] + 2000;
-	month  = date[5];
-	day    = date[4];
-	week   = date[3];
-	hour   = date[2];
+	year = date[6] + 2000;
+	month = date[5];
+	day = date[4];
+	week = date[3];
+	hour = date[2];
 	minute = date[1];
 	second = date[0];
-
 }
-
 
 //********************************************************************************************
 // function name: decTobcd ()
@@ -142,31 +131,27 @@ char GravityRtc::decTobcd(char num)
 	return ((num / 10 * 16) + (num % 10));
 }
 
-
-
-
 void GravityRtc::WriteTimeOn(void)
 {
-	Wire. beginTransmission (RTC_Address);
-	Wire.write(0x10);//Set the address for writing as 10H
-	Wire.write(0x80);//Set WRTC1=1
+	Wire.beginTransmission(RTC_Address);
+	Wire.write(0x10); //Set the address for writing as 10H
+	Wire.write(0x80); //Set WRTC1=1
 	Wire.endTransmission();
 
-	Wire. beginTransmission (RTC_Address);
-	Wire.write(0x0F);//Set the address for writing as OFH
-	Wire.write(0x84);//Set WRTC2=1,WRTC3=1
+	Wire.beginTransmission(RTC_Address);
+	Wire.write(0x0F); //Set the address for writing as OFH
+	Wire.write(0x84); //Set WRTC2=1,WRTC3=1
 	Wire.endTransmission();
 }
 
 void GravityRtc::WriteTimeOff(void)
 {
-	Wire. beginTransmission (RTC_Address);
-	Wire.write(0x0F);   //Set the address for writing as OFH
-	Wire.write(0);//Set WRTC2=0,WRTC3=0
-	Wire.write(0);//Set WRTC1=0
+	Wire.beginTransmission(RTC_Address);
+	Wire.write(0x0F); //Set the address for writing as OFH
+	Wire.write(0);	  //Set WRTC2=0,WRTC3=0
+	Wire.write(0);	  //Set WRTC1=0
 	Wire.endTransmission();
 }
-
 
 // * ************************************ Test Print Code ********* ************************* * /
 //Serial.print("Year = ");//year
@@ -183,5 +168,5 @@ void GravityRtc::WriteTimeOff(void)
 //Serial.print(rtc.minute);
 //Serial.print("   Second = ");//second
 //Serial.print(rtc.second);
-//	
+//
 //Serial.println();

@@ -56,10 +56,11 @@ GravityRtc rtc;
 // sensor monitor
 GravitySensorHub sensorHub;
 SdService sdService = SdService(sensorHub.sensors);
-int WATER_LEVEL_PIN1 = 8; //Digital pin 8
-int WATER_LEVEL_PIN2 = 9; //Digital pin 9
+int WATER_LEVEL_PIN1 = 8;  //Digital pin 8
+int WATER_LEVEL_PIN2 = 9;  //Digital pin 9
 int WATER_LEVEL_PIN3 = 10; //Digital pin 9
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   pinMode(WATER_LEVEL_PIN1, INPUT);
   pinMode(WATER_LEVEL_PIN2, INPUT);
@@ -67,9 +68,7 @@ void setup() {
   rtc.setup();
   sensorHub.setup();
   sdService.setup();
-
 }
-
 
 //********************************************************************************************
 // function name: sensorHub.getValueBySensorNumber (0)
@@ -84,7 +83,8 @@ void setup() {
 
 unsigned long updateTime = 0;
 
-void loop() {
+void loop()
+{
   rtc.update();
   sensorHub.update();
   sdService.update();
@@ -106,15 +106,10 @@ void loop() {
     Serial.print(F("#WLVL1@"));
     Serial.print(digitalRead(WATER_LEVEL_PIN1));
     Serial.print(F("#WLVL2@"));
-    Serial.print(digitalRead(WATER_LEVEL_PIN2));
-    Serial.print(F("#WLVL3@"));
-    Serial.println(digitalRead(WATER_LEVEL_PIN3));
+    Serial.println(digitalRead(WATER_LEVEL_PIN2));
   }
   sensorHub.calibrate();
-
 }
-
-
 
 //* ***************************** Print the relevant debugging information ************** ************ * /
 // Note: Arduino M0 need to replace Serial with SerialUSB when printing debugging information
@@ -128,7 +123,6 @@ void loop() {
 //Serial.println(sensorHub.getValueBySensorNumber(4));
 //Serial.print("  EC= ");
 //Serial.println(sensorHub.getValueBySensorNumber(3));
-
 
 // ************************************************************ time ********************** **********
 //Serial.print("   Year = ");//year

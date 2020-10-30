@@ -33,10 +33,10 @@ public:
 	~GravityTemperature();
 
 	// initialization
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValue();
@@ -44,10 +44,9 @@ public:
 	void calibration(byte mode);
 
 private:
-
-	OneWire * oneWire;
-	unsigned  long tempSampleInterval = 850 ;
-	unsigned  long tempSampleTime;
+	OneWire *oneWire;
+	unsigned long tempSampleInterval = 850;
+	unsigned long tempSampleTime;
 
 	// Analyze temperature data
 	double TempProcess(bool ch);

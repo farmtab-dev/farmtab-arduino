@@ -36,19 +36,20 @@ class SdService
 
 public:
 	int chipSelect;
+
 public:
-	SdService(ISensor* gravitySensor[]);
-	~ SdService ();
+	SdService(ISensor *gravitySensor[]);
+	~SdService();
 
 	// initialization
-	void  setup ();
+	void setup();
 
 	// Update write SD card data
-	void  update ();
+	void update();
 
 private:
 	// points to the pointer to the array of sensors
-	ISensor** gravitySensor;
+	ISensor **gravitySensor;
 	//String dataString ;
 
 	bool sdReady = false;
@@ -59,5 +60,4 @@ private:
 
 	// Connect the string data
 	void connectString(double value);
-
 };

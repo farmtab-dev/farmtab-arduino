@@ -19,8 +19,8 @@
 class ISensor
 {
 public:
-	virtual void setup()		= 0;
-	virtual void update()		= 0;
+	virtual void setup() = 0;
+	virtual void update() = 0;
 	virtual void calibration(byte mode) = 0;
-	virtual double getValue()	= 0;
+	virtual double getValue() = 0;
 };

@@ -25,11 +25,9 @@
 * date    :  2017-04-19
 **********************************************************************/
 
-
-
 // SD card select pin
 //#if defined(__SAMD21G18A__)
-#if  defined(__AVR_ATmega2560__)
+#if defined(__AVR_ATmega2560__)
 
 const int CsPin = 53;
 
@@ -49,16 +47,12 @@ const int CsPin = 4;
 extern GravityRtc rtc;
 String dataString = "";
 
-
-SdService :: SdService (ISensor * gravitySensor []): chipSelect (CsPin), sdDataUpdateTime ( 0 )
+SdService ::SdService(ISensor *gravitySensor[]) : chipSelect(CsPin), sdDataUpdateTime(0)
 {
 	this->gravitySensor = gravitySensor;
 }
 
-
-SdService :: ~ SdService ()
-{
-}
+SdService ::~SdService() {}
 
 //********************************************************************************************
 // function name: setup ()
@@ -81,14 +75,13 @@ void SdService::setup()
 
 	// write the file header
 	dataFile = SD.open("sensor.csv", FILE_WRITE);
-	if (dataFile && dataFile.position() == 0) {
+	if (dataFile && dataFile.position() == 0)
+	{
 		//dataFile.println(F("Year,Month,Day,Hour,Minues,Second,pH,temp(C),DO(mg/l),ec(s/m),orp(mv)"));
 		dataFile.println(F("date,pH,temp(C),DO(mg/l),ec(s/m),orp(mv)"));
 		dataFile.close();
 	}
-
 }
-
 
 //********************************************************************************************
 // function name: update ()
@@ -96,12 +89,12 @@ void SdService::setup()
 //********************************************************************************************
 void SdService::update()
 {
-	if (sdReady && millis() - sdDataUpdateTime > SDUPDATEDATATIME) 
+	if (sdReady && millis() - sdDataUpdateTime > SDUPDATEDATATIME)
 	{
-		//Serial.println(F("Write Sd card"));	
+		//Serial.println(F("Write Sd card"));
 		dataString = "";
 		// Year Month Day Hours Minute Seconds
-		dataString += String(rtc.year,10);
+		dataString += String(rtc.year, 10);
 		dataString += "/";
 		dataString += String(rtc.month, 10);
 		dataString += "/";
@@ -121,40 +114,44 @@ void SdService::update()
 			dataFile.print(dataString);
 			dataFile.close();
 			Debug::print(dataString);
-
 		}
 
 		dataString = "";
 		//ph
-		if (this->gravitySensor[0] != NULL) {
+		if (this->gravitySensor[0] != NULL)
+		{
 			connectString(this->gravitySensor[0]->getValue());
 		}
 		else
 			connectString(0);
 
 		// temperature
-		if (this->gravitySensor[1] != NULL) {
+		if (this->gravitySensor[1] != NULL)
+		{
 			connectString(this->gravitySensor[1]->getValue());
 		}
 		else
 			connectString(0);
 
 		//DO
-		if (this->gravitySensor[2] != NULL) {
+		if (this->gravitySensor[2] != NULL)
+		{
 			connectString(this->gravitySensor[2]->getValue());
 		}
 		else
 			connectString(0);
 
 		//EC
-		if (this->gravitySensor[3] != NULL) {
+		if (this->gravitySensor[3] != NULL)
+		{
 			connectString(this->gravitySensor[3]->getValue());
 		}
 		else
 			connectString(0);
 
 		//Orp
-		if (this->gravitySensor[4] != NULL) {
+		if (this->gravitySensor[4] != NULL)
+		{
 			connectString(this->gravitySensor[4]->getValue());
 		}
 		else
@@ -167,7 +164,6 @@ void SdService::update()
 			dataFile.println(dataString);
 			dataFile.close();
 			Debug::println(dataString);
-
 		}
 		sdDataUpdateTime = millis();
 	}

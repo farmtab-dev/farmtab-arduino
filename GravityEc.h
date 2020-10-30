@@ -27,7 +27,7 @@
 
 // external GravityTemperature ecTemperature;
 
-class GravityEc:public ISensor
+class GravityEc : public ISensor
 {
 public:
 	// Conductivity sensor pin
@@ -36,65 +36,63 @@ public:
 	// Conductivity values
 	double ECcurrent;
 	double ECvalueRaw;
-	double TempCoefficient; 
+	double TempCoefficient;
 
-	double CoefficientVolatge ;
+	double CoefficientVolatge;
 	float compensationFactor;
 
 public:
-	GravityEc(ISensor*);
+	GravityEc(ISensor *);
 	~GravityEc();
 
 	// initialization
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValue();
 
-
 	// Added from DFRobot_EC
 	// void calibration(char *cmd); //calibration by Serial CMD
 	// void calibration();			   //calibration by Serial CMD
-	void calibration(byte mode);			   //calibration by Serial CMD
+	void calibration(byte mode); //calibration by Serial CMD
 	void readCharacteristicValues();
 
 private:
 	// point to the temperature sensor pointer
-	ISensor* ecTemperature = NULL;
-
+	ISensor *ecTemperature = NULL;
 
 	static const int numReadings = 5;
-	unsigned int readings[numReadings] = { 0 };      // the readings from the analog input
+	unsigned int readings[numReadings] = {0}; // the readings from the analog input
 	int index;
 	double sum;
-	unsigned long AnalogValueTotal;      // the running total
+	unsigned long AnalogValueTotal; // the running total
 	unsigned int AnalogAverage;
 	unsigned int averageVoltage;
 	unsigned long AnalogSampleTime;
 	unsigned long printTime;
-	unsigned  long tempSampleTime;
+	unsigned long tempSampleTime;
 	unsigned long AnalogSampleInterval;
-	unsigned long printInterval ;
+	unsigned long printInterval;
 
 	// Added from DFRobot_EC
 	float _kvalue;
 	float _kvalueLow;
 	float _kvalueHigh;
-  char  _cmdReceivedBuffer[ReceivedBufferLength];  //store the Serial CMD
-  byte  _cmdReceivedBufferIndex;
-	
+	char _cmdReceivedBuffer[ReceivedBufferLength]; //store the Serial CMD
+	byte _cmdReceivedBufferIndex;
+
 	// Calculate the average
-  void calculateAnalogAverage();
+	void calculateAnalogAverage();
 
 	// Calculate the conductivity
 	void calculateEc();
 
 	//Added from DFRobot_EC
 	//boolean cmdSerialDataAvailable();
-	void    ecCalibration(byte mode); // calibration process, wirte key parameters to EEPROM
-	//byte    cmdParse(const char *cmd);
-	//byte    cmdParse();
+	void ecCalibration(byte mode); // calibration process, wirte key parameters to EEPROM
+								   //byte    cmdParse(const char *cmd);
+								   //byte    cmdParse();
 };

@@ -15,7 +15,6 @@
 * date    :  2017-04-12
 *********************************************************************************************/
 
-
 #include "GravitySensorHub.h"
 #include "GravityPh.h"
 #include "GravityOrp.h"
@@ -44,7 +43,7 @@ GravitySensorHub::GravitySensorHub()
 	this->sensors[0] = new GravityPh();
 	this->sensors[1] = new GravityTemperature(5);
 	//this->sensors[2] = new SensorDo();
-	 this->sensors[2] = new GravityTDS(this->sensors[1]);
+	this->sensors[2] = new GravityTDS(this->sensors[1]);
 	this->sensors[3] = new GravityEc(this->sensors[1]);
 	this->sensors[4] = new GravityOrp();
 	this->_cmdReceivedBufferIndex = 0;
@@ -65,7 +64,6 @@ GravitySensorHub::~GravitySensorHub()
 	}
 }
 
-
 //********************************************************************************************
 // function name: setup ()
 // Function Description: Initializes all sensors
@@ -80,7 +78,6 @@ void GravitySensorHub::setup()
 		}
 	}
 }
-
 
 //********************************************************************************************
 // function name: update ()
@@ -116,29 +113,48 @@ double GravitySensorHub::getValueBySensorNumber(int num)
 	return this->sensors[num]->getValue();
 }
 
-
 void GravitySensorHub::calibrate()
 {
-	if (cmdSerialDataAvailable() > 0) {
-		if(strstr(this->_cmdReceivedBuffer, "ENTERPH")      != NULL){
+	if (cmdSerialDataAvailable() > 0)
+	{
+		if (strstr(this->_cmdReceivedBuffer, "ENTERPH") != NULL)
+		{
 			this->sensors[0]->calibration(1);
-		}else if(strstr(this->_cmdReceivedBuffer, "EXITPH") != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "EXITPH") != NULL)
+		{
 			this->sensors[0]->calibration(3);
-		}else if(strstr(this->_cmdReceivedBuffer, "CALPH")  != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "CALPH") != NULL)
+		{
 			this->sensors[0]->calibration(2);
-		}  else if(strstr(this->_cmdReceivedBuffer, "ENTERTDS")      != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "ENTERTDS") != NULL)
+		{
 			this->sensors[2]->calibration(1);
-		}else if(strstr(this->_cmdReceivedBuffer, "EXITTDS") != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "EXITTDS") != NULL)
+		{
 			this->sensors[2]->calibration(3);
-		}else if(strstr(this->_cmdReceivedBuffer, "CALTDS")  != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "CALTDS") != NULL)
+		{
 			this->sensors[2]->calibration(2);
-		}  else if (strstr(this->_cmdReceivedBuffer, "ENTEREC") != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "ENTEREC") != NULL)
+		{
 			this->sensors[3]->calibration(1);
-		} else if (strstr(this->_cmdReceivedBuffer, "EXITEC") != NULL){
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "EXITEC") != NULL)
+		{
 			this->sensors[3]->calibration(3);
-		} else if (strstr(this->_cmdReceivedBuffer, "CALEC") != NULL)	{
+		}
+		else if (strstr(this->_cmdReceivedBuffer, "CALEC") != NULL)
+		{
 			this->sensors[3]->calibration(2);
-		}else{
+		}
+		else
+		{
 			Serial.println(F(">>>Arduino Command Error<<<"));
 		}
 	}
@@ -158,11 +174,14 @@ boolean GravitySensorHub::cmdSerialDataAvailable()
 		}
 		cmdReceivedTimeOut = millis();
 		cmdReceivedChar = Serial.read();
-		if (cmdReceivedChar == '\n' || this->_cmdReceivedBufferIndex == ReceivedBufferLength - 1) {
+		if (cmdReceivedChar == '\n' || this->_cmdReceivedBufferIndex == ReceivedBufferLength - 1)
+		{
 			this->_cmdReceivedBufferIndex = 0;
 			strupr(this->_cmdReceivedBuffer);
 			return true;
-		} else	{
+		}
+		else
+		{
 			this->_cmdReceivedBuffer[this->_cmdReceivedBufferIndex] = cmdReceivedChar;
 			this->_cmdReceivedBufferIndex++;
 		}

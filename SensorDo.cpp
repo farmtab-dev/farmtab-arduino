@@ -22,16 +22,9 @@
 
 //SoftwareSerial mySerial(10, 11);
 
-SensorDo::SensorDo()
-{
+SensorDo::SensorDo() {}
 
-}
-
-
-SensorDo::~SensorDo()
-{
-}
-
+SensorDo::~SensorDo() {}
 
 //********************************************************************************************
 // function name: setup ()
@@ -43,26 +36,12 @@ void SensorDo::setup()
 	//mySerial.begin(9600);
 }
 
-
 //********************************************************************************************
 // function name: update ()
 // Function Description: Update the sensor value
 //********************************************************************************************
 void SensorDo::update()
 {
-	/* // Disabled because interfer with calibration cmd
-	static boolean sensorStringComplete = false;
-	if (Serial.available() > 0)
-	{
-
-		char inchar = (char)Serial.read();
-		this->sensorstring += inchar;
-		if (inchar == '\r')
-		{
-			sensorStringComplete = true;
-			//Serial.println("Do avaible");
-		}		
-	} */
 	static boolean sensorStringComplete = true;
 	if (sensorStringComplete == true)
 	{
@@ -81,12 +60,6 @@ double SensorDo::getValue()
 {
 	return doValue;
 }
-
-//
-//void serialEvent() {                                  //if the hardware serial port_0 receives a char
-//	inputstring = Serial.readStringUntil(13);           //read the string until we see a <CR>
-//	input_string_complete = true;                       //set the flag used to tell if we have received a completed string from the PC 
-//}
 
 void SensorDo::calibration()
 {

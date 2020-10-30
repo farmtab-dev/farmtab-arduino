@@ -23,9 +23,9 @@
 #include <Arduino.h>
 #include "ISensor.h"
 
-#define ReceivedBufferLength 10  //length of the Serial CMD buffer
+#define ReceivedBufferLength 10 //length of the Serial CMD buffer
 
-class GravityPh:public ISensor
+class GravityPh : public ISensor
 {
 public:
 	// ph sensor pin
@@ -36,38 +36,39 @@ public:
 
 	// Take the sample interval
 	int samplingInterval;
+
 private:
 	static const int arrayLength = 5;
-	int pHArray [arrayLength];    // stores the average value of the sensor return data
+	int pHArray[arrayLength]; // stores the average value of the sensor return data
 	double pHValue, voltage;
 	double averageVoltage;
 	double sum;
 
-  double  _acidVoltage;
-  double  _neutralVoltage;
+	double _acidVoltage;
+	double _neutralVoltage;
 
-  char   _cmdReceivedBuffer[ReceivedBufferLength];  //store the Serial CMD
-  byte   _cmdReceivedBufferIndex;
-  
-  //boolean cmdSerialDataAvailable();
-  void    phCalibration(byte mode); // calibration process, wirte key parameters to EEPROM
-  //byte    cmdParse(const char* cmd);
-  //byte    cmdParse();
+	char _cmdReceivedBuffer[ReceivedBufferLength]; //store the Serial CMD
+	byte _cmdReceivedBufferIndex;
+
+	//boolean cmdSerialDataAvailable();
+	void phCalibration(byte mode); // calibration process, wirte key parameters to EEPROM
+								   //byte    cmdParse(const char* cmd);
+								   //byte    cmdParse();
 
 public:
 	GravityPh();
-	~GravityPh() {};
+	~GravityPh(){};
 	// initialization
-	void  setup ();
+	void setup();
 
 	// update the sensor data
-	void  update ();
+	void update();
 
 	// Get the sensor data
 	double getValue();
 
 	void readCharacteristicValues();
 	//void calibration();
-    //void calibration(char* cmd);
-    void calibration(byte mode);
+	//void calibration(char* cmd);
+	void calibration(byte mode);
 };
